@@ -14,6 +14,7 @@
 #include <workerd/jsg/ser.h>
 #include <workerd/jsg/setup.h>
 #include <workerd/jsg/jsg-test.h>
+#include <workerd/tests/test-fixture.h>
 
 #include <capnp/message.h>
 #include <capnp/rpc.h>
@@ -129,6 +130,14 @@ KJ_TEST("wire format version does not change deserialization behavior on real da
       KJ_EXPECT(oldOutput == newOutput, hexStr);
     }
   });
+}
+
+KJ_TEST("test fixture") {
+  workerd::TestFixture fixture;
+  fixture.runInIoContext([](const workerd::TestFixture::Environment& env) -> kj::Promise<void> {
+      return kj::READY_NOW;
+    }
+  );
 }
 
 }  // namespace
